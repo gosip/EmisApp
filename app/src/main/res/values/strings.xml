@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="text_placeholder">Placeholder</string>
+
+    <string-array name="drawer_items">
+        <item>Student Info</item>
+        <item>Tuition Card</item>
+        <item>BS Transcript</item>
+        <item>Settings</item>
+    </string-array>
 </resources>
