@@ -1,11 +1,12 @@
 package ge.edu.freeuni.emis.emisapp.ui.activities;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +30,26 @@ public class MainActivity extends ActionBarActivity {
     private ListView drawerList;
     private List<DrawerItem> drawerItemList;
 
+    private CharSequence drawerTitle;
+    private CharSequence title;
+    private ActionBarDrawerToggle drawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         app = (App) getApplication();
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
+                getResources().getColor(R.color.theme_color)
+        ));
+
+        initDrawer();
+    }
+
+    private void initDrawer() {
+        title = drawerTitle = getTitle();
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
         drawerItemList = new ArrayList<DrawerItem>();
@@ -42,6 +57,27 @@ public class MainActivity extends ActionBarActivity {
         for (String s : getResources().getStringArray(R.array.drawer_items)) {
             drawerItemList.add(new DrawerItem(R.drawable.settings_mdpi, s));
         }
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout,
+                R.string.drawer_open,
+                R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                getSupportActionBar().setTitle(title);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(title);
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         drawerList.setAdapter(new DrawerListAdapter(this, drawerItemList));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -62,12 +98,21 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(drawerToggle.onOptionsItemSelected(item))
+            return true;
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        this.title = title;
+        getSupportActionBar().setTitle(this.title);
     }
 
     @Override
@@ -85,6 +130,12 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment = new PlaceHolderFrag();
@@ -98,6 +149,7 @@ public class MainActivity extends ActionBarActivity {
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
-        drawerLayout.closeDrawer(Gravity.LEFT);
+        setTitle(drawerItemList.get(position).getItemText());
+        drawerLayout.closeDrawer(drawerList);
     }
 }
