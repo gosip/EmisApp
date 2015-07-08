@@ -1,6 +1,7 @@
 package ge.edu.freeuni.emis.emisapp.ui.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import ge.edu.freeuni.emis.emisapp.adapters.SemesterListAdapter;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
 import ge.edu.freeuni.emis.emisapp.model.Semester;
+import ge.edu.freeuni.emis.emisapp.ui.activities.ClassesActivity;
 
 /**
  * Created by giorgi on 7/7/15.
@@ -48,7 +50,19 @@ public class TuitionCardFragment extends Fragment implements AppStateListener {
         SemesterListAdapter adapter = new SemesterListAdapter(getActivity(), semesterList);
 
         listView.setAdapter(adapter);
-            return listView;
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
+                                        int childPosition, long id) {
+                Intent intent = new Intent(getActivity(), ClassesActivity.class);
+                intent.putExtra(getResources().getString(R.string.semester_key), groupPosition);
+                intent.putExtra(getResources().getString(R.string.class_key), childPosition);
+
+                startActivity(intent);
+                return true;
+            }
+        });
+        return listView;
     }
 
     @Override

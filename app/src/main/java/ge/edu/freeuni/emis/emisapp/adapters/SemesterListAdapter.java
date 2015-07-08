@@ -111,9 +111,8 @@ public class SemesterListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
-
 
     private static class ViewHolder{
         TextView textView;

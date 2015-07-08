@@ -2,4 +2,5 @@
 <resources>
     <color name="drawer_list_item_text_color">#000000</color>
     <color name="theme_color">#00796B</color>
+    <color name="tab_text_color">#FFFFFF</color>
 </resources>

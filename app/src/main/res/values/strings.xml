@@ -8,10 +8,14 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="semester_key">semesterIdx</string>
+    <string name="class_key">classIdx</string>
+
     <string-array name="drawer_items">
         <item>Student Info</item>
         <item>Tuition Card</item>
         <item>BS Transcript</item>
         <item>Settings</item>
     </string-array>
+    <string name="title_activity_classes">ClassesActivity</string>
 </resources>
