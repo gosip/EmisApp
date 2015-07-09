@@ -17,5 +17,14 @@
         <item>BS Transcript</item>
         <item>Settings</item>
     </string-array>
+
+
+    <string-array name="drawer_icons">
+        <item>@drawable/user</item>
+        <item>@drawable/semesters</item>
+        <item>@drawable/bs_transcript</item>
+        <item>@drawable/settings</item>
+    </string-array>
+
     <string name="title_activity_classes">ClassesActivity</string>
 </resources>

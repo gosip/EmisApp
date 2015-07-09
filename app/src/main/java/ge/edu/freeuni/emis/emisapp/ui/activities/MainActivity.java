@@ -1,5 +1,6 @@
 package ge.edu.freeuni.emis.emisapp.ui.activities;
 
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,8 +55,11 @@ public class MainActivity extends ActionBarActivity {
         drawerList = (ListView) findViewById(R.id.left_drawer);
         drawerItemList = new ArrayList<DrawerItem>();
 
-        for (String s : getResources().getStringArray(R.array.drawer_items)) {
-            drawerItemList.add(new DrawerItem(R.drawable.settings_mdpi, s));
+        String[] drawerItems = getResources().getStringArray(R.array.drawer_items);
+        TypedArray imgs = getResources().obtainTypedArray(R.array.drawer_icons);
+
+        for (int i = 0; i < drawerItems.length; i++) {
+            drawerItemList.add(new DrawerItem(imgs.getResourceId(i, -1), drawerItems[i]));
         }
 
         drawerToggle = new ActionBarDrawerToggle(

@@ -29,8 +29,8 @@ public class ClassesPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         String ret = classList.get(position).getClassName();
 
-        if (ret.length() > 30) {
-            ret = ret.substring(0, 27) + "...";
+        if (ret.length() > 20) {
+            ret = ret.substring(0, 17) + "...";
         }
 
         return ret;
