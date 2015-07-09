@@ -92,19 +92,22 @@ public class SemesterListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        ChildViewHolder viewHolder;
         if (convertView == null) {
-            viewHolder = new ViewHolder();
+            viewHolder = new ChildViewHolder();
             convertView = LayoutInflater.from(context)
                     .inflate(R.layout.class_list_item, parent, false);
-            viewHolder.textView = (TextView) convertView.findViewById(R.id.class_name);
+            viewHolder.cl = (TextView) convertView.findViewById(R.id.class_name);
+            viewHolder.grd = (TextView) convertView.findViewById(R.id.class_grade);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ChildViewHolder) convertView.getTag();
         }
 
         Class currClass = (Class) getChild(groupPosition, childPosition);
-        viewHolder.textView.setText(currClass.getClassName());
+        viewHolder.cl.setText(currClass.getClassName());
+        viewHolder.grd.setText(currClass.getStudentsGrade().getGradeIndicator()
+                + " - " + currClass.getStudentsGrade().getScore());
 
         return convertView;
     }
@@ -116,5 +119,10 @@ public class SemesterListAdapter extends BaseExpandableListAdapter{
 
     private static class ViewHolder{
         TextView textView;
+    }
+
+    private static class ChildViewHolder{
+        TextView cl;
+        TextView grd;
     }
 }

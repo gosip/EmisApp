@@ -3,24 +3,33 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-    android:paddingRight="?android:attr/expandableListPreferredChildPaddingLeft"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
-    <TextView
-        android:id="@+id/class_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".85"
-    />
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight=".05" />
 
     <TextView
-        android:id="@+id/class_grade"
+        android:id="@+id/number_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
 </LinearLayout>

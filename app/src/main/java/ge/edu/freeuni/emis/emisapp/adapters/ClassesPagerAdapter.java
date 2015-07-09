@@ -3,10 +3,12 @@ package ge.edu.freeuni.emis.emisapp.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import java.util.List;
 
 import ge.edu.freeuni.emis.emisapp.model.Class;
+import ge.edu.freeuni.emis.emisapp.ui.fragments.ClassDetailedInfoFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
 
 /**
@@ -14,15 +16,16 @@ import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
  */
 public class ClassesPagerAdapter extends FragmentPagerAdapter {
     private List<Class> classList;
-    public ClassesPagerAdapter(FragmentManager fm, List<Class> classList) {
+    private int semesterIdx;
+    public ClassesPagerAdapter(FragmentManager fm, List<Class> classList, int semesterIdx) {
         super(fm);
         this.classList = classList;
+        this.semesterIdx = semesterIdx;
     }
 
     @Override
     public Fragment getItem(int i) {
-
-        return new PlaceHolderFrag();
+        return ClassDetailedInfoFragment.newInstance(semesterIdx, i);
     }
 
     @Override

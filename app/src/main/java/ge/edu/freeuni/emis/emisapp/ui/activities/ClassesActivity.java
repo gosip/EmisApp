@@ -51,7 +51,7 @@ public class ClassesActivity extends ActionBarActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 
         viewPager.setAdapter(new ClassesPagerAdapter(getSupportFragmentManager(),
-                semester.getClasses()));
+                semester.getClasses(), semesterIdx));
         tabLayout.setViewPager(viewPager);
         tabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
@@ -69,6 +69,7 @@ public class ClassesActivity extends ActionBarActivity {
                 getResources().getColor(R.color.theme_color)
         ));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Semester " + semester.getNumSemester());
     }
 
 

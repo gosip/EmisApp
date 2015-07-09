@@ -27,4 +27,5 @@
     </string-array>
 
     <string name="title_activity_classes">ClassesActivity</string>
+    <string name="grade_indicator">Grade:</string>
 </resources>
