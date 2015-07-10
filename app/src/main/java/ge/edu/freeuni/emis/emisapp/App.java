@@ -7,6 +7,11 @@ import java.util.List;
 
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
+import ge.edu.freeuni.emis.emisapp.interfaces.GradesLoadingListener;
+import ge.edu.freeuni.emis.emisapp.interfaces.InfoLoadingListener;
+import ge.edu.freeuni.emis.emisapp.interfaces.InfoUpdatingListener;
+import ge.edu.freeuni.emis.emisapp.interfaces.PersonalInfoLoadingListener;
+import ge.edu.freeuni.emis.emisapp.interfaces.UpdateMessage;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
 import ge.edu.freeuni.emis.emisapp.model.grading.Grade;
@@ -15,9 +20,12 @@ import ge.edu.freeuni.emis.emisapp.model.grading.SingleDetailedGrade;
 /**
  * Created by giorgi on 7/7/15.
  */
-public class App extends Application implements AppStateListener, AppStateSubject {
+public class App extends Application implements
+        AppStateSubject, GradesLoadingListener, InfoLoadingListener,
+        InfoUpdatingListener, PersonalInfoLoadingListener {
     private List<AppStateListener> listeners;
     private List<Semester> semesterList;
+    private Student student;
 
     @Override
     public void onCreate() {
@@ -125,11 +133,6 @@ public class App extends Application implements AppStateListener, AppStateSubjec
     }
 
     @Override
-    public void onSemestersListDownloaded(List<Semester> semesterList) {
-
-    }
-
-    @Override
     public void registerListener(AppStateListener listener) {
         if (!listeners.contains(listener))
             listeners.add(listener);
@@ -142,15 +145,44 @@ public class App extends Application implements AppStateListener, AppStateSubjec
     }
 
     @Override
-    public void notifySemesterListDownloaded(List<Semester> semesterList) {
+    public void notifySemesterListUpdated(List<Semester> semesterList) {
         for (AppStateListener listener : listeners) {
-            listener.onSemestersListDownloaded(semesterList);
+            listener.onSemestersListUpdated(semesterList);
         }
     }
 
+    @Override
+    public void notifyStudentInfoUpdated(Student student) {
+        for (AppStateListener listener : listeners) {
+            listener.onStudentInfoUpdated(student);
+        }
+    }
 
     // public getters
     public List<Semester> getSemesterList() {
         return semesterList;
+    }
+    public Student getStudent() {
+        return student;
+    }
+
+    @Override
+    public void onGradesDownloaded(List<Semester> semesterList) {
+
+    }
+
+    @Override
+    public void onInfoLoaded(Student studentInfo, List<Semester> semesterList) {
+
+    }
+
+    @Override
+    public void notifyInfoUpdated(UpdateMessage updateMessage, Student studentInfo, List<Semester> semesterList) {
+
+    }
+
+    @Override
+    public void onPersonalInfoDownloaded(Student studentInfo) {
+
     }
 }

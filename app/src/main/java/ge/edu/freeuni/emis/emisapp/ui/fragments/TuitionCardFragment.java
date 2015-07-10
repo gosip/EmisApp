@@ -20,6 +20,7 @@ import ge.edu.freeuni.emis.emisapp.adapters.SemesterListAdapter;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
 import ge.edu.freeuni.emis.emisapp.model.Semester;
+import ge.edu.freeuni.emis.emisapp.model.Student;
 import ge.edu.freeuni.emis.emisapp.ui.activities.ClassesActivity;
 
 /**
@@ -66,7 +67,12 @@ public class TuitionCardFragment extends Fragment implements AppStateListener {
     }
 
     @Override
-    public void onSemestersListDownloaded(List<Semester> semesterList) {
+    public void onSemestersListUpdated(List<Semester> semesterList) {
+
+    }
+
+    @Override
+    public void onStudentInfoUpdated(Student student) {
 
     }
 }
