@@ -22,12 +22,7 @@ public class Class {
     private List<Category> detailedGradeCategories;
     private Map<String, List<SingleDetailedGrade>> detailedGrades;
 
-    public Class(String className, List<String> lecturers, int numCredits, Grade studentsGrade) {
-        this.className = className;
-        this.lecturers = lecturers;
-        this.numCredits = numCredits;
-        this.studentsGrade = studentsGrade;
-
+    public Class() {
         this.detailedGradeCategories = new ArrayList<>();
         this.detailedGrades = new HashMap<>();
     }
@@ -59,5 +54,18 @@ public class Class {
     }
     public Map<String, List<SingleDetailedGrade>> getDetailedGrades() {
         return detailedGrades;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+    public void setLecturers(List<String> lecturers) {
+        this.lecturers = lecturers;
+    }
+    public void setNumCredits(int numCredits) {
+        this.numCredits = numCredits;
+    }
+    public void setStudentsGrade(Grade studentsGrade) {
+        this.studentsGrade = studentsGrade;
     }
 }
