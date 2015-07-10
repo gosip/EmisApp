@@ -1,0 +1,161 @@
+
+<style>
+
+	.user_left {
+		position: relative;
+	}
+	
+	.user_avatar_upload_wrapper {
+		display: none;
+		position: absolute;
+		background: rgba(0, 0, 0, 0.2);
+		border: 1px solid rgba(0, 0, 0, 0.5);
+	}
+	
+	.user_avatar_upload_button {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 84px;
+		height: 10px;
+		text-align: center;
+		margin-left: -47px;
+		margin-top: -5px;
+		font-family: my_font;
+		border: 1px solid #CCCCCC;
+		border-radius: 5px;
+		font-weight: normal;
+		font-size: 10px;
+		padding: 5px;
+		background: #F2F2F2;
+		cursor: pointer;
+	}
+	
+	.user_avatar_upload_button:hover {
+		background: #EBEBEB;
+	}
+	
+	input[name="user_avatar_file"] {
+		visibility: hidden;
+	}
+</style>
+
+<br/>
+<table width="100%">
+	<tr>
+		<td valign="top" style="text-align: center;" class="user_left">
+			<img class="user_avatar" style="margin-bottom: 10px;" onerror="this.src='styles/images/Accept-Male-User-icon.png'" src="files/users/1374238607w9NEscwPhT5dw1Ts6re3.jpg" />
+			ოსიპოვი გიორგი			
+			<div class="user_avatar_upload_wrapper">
+				<div class="user_avatar_upload_button">სურათის შეცვლა</div>
+			</div>
+		</td>
+		<td valign="top" class="user_right">
+			<div class="st_user_right">
+								
+				<hr/>
+				<div class="info_label">სპეციალობა:</div> კომპიუტინგის ბაკალავრი<br/><br/>
+								<div class="info_label">საფეხური:</div> ბაკალავრი<br/><br/>
+				<!--<div class="info_label">სწავლის საფასური:</div>  ლარი<br/><br/>
+				<div class="info_label">გადახდილი თანხა:</div>  ლარი<br/><br/>-->
+				<div class="info_label">მიმდინარე სემესტრი:</div> 6 სემესტრი<br/><br/>
+				<!--<div class="info_label">დაფინანსება:</div> %<br/><br/>-->
+				<div class="info_label">სქესი:</div> მამრობითი<br/><br/>
+				<div class="info_label">ეროვნება:</div> საქართველოს<br/><br/>
+				<div class="info_label">დაბადების თარიღი:</div> 1994-02-02<br/><br/>
+				<div class="info_label">საცხოვრებელი ადგილი:</div> თბილისი ვ.ბარნოვის ქ. N 73 ბ. 9 <br/><br/>
+				<div class="info_label">სტატუსი:</div> <span style="color: #00AA00">აქტიური</span><br/><br/>
+				<div class="info_label">სკოლა:</div> კომპიუტერული მეცნიერების და მათემატიკის სკოლა<br/><br/>
+				<div class="info_label">სულ კრედიტები:</div> <b>157</b><br/><br/>
+				<div class="info_label">GPA:</div> <b>3.44</b><br/><br/>				<div class="info_label">ტელეფონის ნომერი:</div>
+					<script>
+						function change_phone_number(object) {
+							$.ajax({
+								type: "POST",
+								url: "index.php?mode=info&sub=ajax&cat=change_info",
+								dataType: "json",
+								data: {
+									"mobile_phone_num":$('input[name="mobile_phone_num"]').val()
+								},
+								success: function(data) {
+									if(data.res == 'yes') {
+										location.href = location.href;
+									} else {
+										alert(data.message);
+									}
+								}
+							});
+						}
+					</script>
+					
+					<input style="width: 170px;" type="text" name="mobile_phone_num" value="579296060" />
+					<button onClick="change_phone_number(this);">შენახვა</button>
+					<br/><br/>
+															
+			</div>
+			<input id="user_avatar_file" type="file" name="user_avatar_file" >
+		</td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+
+	$('.user_avatar, .user_avatar_upload_wrapper').hover(
+		function() {
+			
+			$('.user_avatar_upload_wrapper')
+				.css({
+				  top: $('.user_avatar').position().top,
+				  left: $('.user_avatar').position().left,
+				  width: $('.user_avatar').width(),
+				  height: $('.user_avatar').height()
+				})
+				.fadeIn(0);
+				
+		},
+		function() {
+			$('.user_avatar_upload_wrapper').fadeOut(0);
+		}
+	);
+	
+	$('.user_avatar_upload_button').click(function() {
+		$('input[name="user_avatar_file"]').click();
+	});
+	
+	$('input[name="user_avatar_file"]').change(function() {
+		var user_avatar = document.getElementById('user_avatar_file').files;
+		
+		if(user_avatar.length > 0) {
+		
+			if (user_avatar[0].type.match('image.*')) {
+				var formData = new FormData();
+				
+				formData.append('avatar', user_avatar[0], user_avatar[0].name);
+				
+				//upload file
+				$.ajax({
+					url: 'index.php?mode=info&sub_page=info&sub=upload_image',
+					dataType: 'json',
+					type: 'POST',
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data) {
+						if (data.res == 'yes') {
+							$('.user_avatar').attr({
+								src: 'files/users/'+data.items+'.jpg'
+							});
+						}
+					}
+				});
+				
+			} else {
+				alert('დაშვებულია მხოლოდ jpg, png ფორმატის ფაილები');
+			}
+			
+		}
+		
+	});
+	
+</script>
