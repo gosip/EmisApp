@@ -14,7 +14,7 @@ import ge.edu.freeuni.emis.emisapp.model.grading.SingleDetailedGrade;
  */
 public class Class {
     private String className;
-    private String lecturer;
+    private List<String> lecturers;
     private int numCredits;
     private Grade studentsGrade;
 
@@ -22,9 +22,9 @@ public class Class {
     private List<Category> detailedGradeCategories;
     private Map<String, List<SingleDetailedGrade>> detailedGrades;
 
-    public Class(String className, String lecturer, int numCredits, Grade studentsGrade) {
+    public Class(String className, List<String> lecturers, int numCredits, Grade studentsGrade) {
         this.className = className;
-        this.lecturer = lecturer;
+        this.lecturers = lecturers;
         this.numCredits = numCredits;
         this.studentsGrade = studentsGrade;
 
@@ -45,8 +45,8 @@ public class Class {
     public String getClassName() {
         return className;
     }
-    public String getLecturer() {
-        return lecturer;
+    public List<String> getLecturers() {
+        return lecturers;
     }
     public int getNumCredits() {
         return numCredits;

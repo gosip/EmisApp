@@ -50,6 +50,7 @@ public class ClassDetailedInfoFragment extends Fragment {
                 .inflate(R.layout.fragment_class_detailed_view, container, false);
         TextView className = (TextView) rootView.findViewById(R.id.class_name_text);
         TextView grade = (TextView) rootView.findViewById(R.id.grade);
+        TextView credits = (TextView) rootView.findViewById(R.id.credits);
         ExpandableListView gradeList = (ExpandableListView) rootView
                 .findViewById(R.id.detailed_grades_list);
 
@@ -58,6 +59,7 @@ public class ClassDetailedInfoFragment extends Fragment {
         className.setText(currClass.getClassName());
         grade.setText(currClass.getStudentsGrade().getGradeIndicator()
                 + " - " + currClass.getStudentsGrade().getScore());
+        credits.setText("credits: " + currClass.getNumCredits());
 
         gradeList.setAdapter(new DetailedGradesListAdapter(
                 getActivity(),

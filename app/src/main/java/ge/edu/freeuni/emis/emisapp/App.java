@@ -54,24 +54,29 @@ public class App extends Application implements AppStateListener, AppStateSubjec
                 new SingleDetailedGrade(2, 100, 70, 40, 28),
         };
 
+        final List<String> lecturers = new ArrayList<String>(){{
+            add("shota");
+            add("bochora");
+        }};
+
         final List<Class> firstSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("Programming methodology", "shota", 6, grade));
-            add(new Class("Programming paradigms", "shota", 6, grade));
-            add(new Class("Programming abstractions", "shota", 6, grade));
-            add(new Class("Object Oriented Design Patterns", "shota", 6, grade));
-            add(new Class("Object Oriented Design Patterns And More Stuff", "shota", 6, grade));
+            add(new Class("Programming methodology", lecturers, 6, grade));
+            add(new Class("Programming paradigms", lecturers, 6, grade));
+            add(new Class("Programming abstractions", lecturers, 6, grade));
+            add(new Class("Object Oriented Design Patterns", lecturers, 6, grade));
+            add(new Class("Object Oriented Design Patterns And More Stuff", lecturers, 6, grade));
         }};
         final List<Class> secondSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("OOP", "shota", 6, grade));
-            add(new Class("Mobile programming", "shota", 6, grade));
-            add(new Class("Linear algebra", "shota", 6, grade));
+            add(new Class("OOP", lecturers, 6, grade));
+            add(new Class("Mobile programming", lecturers, 6, grade));
+            add(new Class("Linear algebra", lecturers, 6, grade));
         }};
         final List<Class> thirdSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("Practicum Practicum", "shota", 6, grade));
-            add(new Class("Linear Programming", "shota", 6, grade));
-            add(new Class("Artificial Intelligence", "shota", 6, grade));
-            add(new Class("Networking", "shota", 6, grade));
-            add(new Class("Literature and art", "shota", 6, grade));
+            add(new Class("Practicum Practicum", lecturers, 6, grade));
+            add(new Class("Linear Programming", lecturers, 6, grade));
+            add(new Class("Artificial Intelligence", lecturers, 6, grade));
+            add(new Class("Networking", lecturers, 6, grade));
+            add(new Class("Literature and art", lecturers, 6, grade));
         }};
 
         for (Class firstSemesterClass : firstSemesterClasses) {

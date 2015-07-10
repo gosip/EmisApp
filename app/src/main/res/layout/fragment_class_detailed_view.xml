@@ -35,6 +35,20 @@
             android:textColor="@color/theme_color"
             android:layout_gravity="center"
             android:textSize="15dp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight=".05"/>
+
+        <TextView
+            android:id="@+id/credits"
+            android:paddingTop="@dimen/top_bottom_padding"
+            android:paddingBottom="@dimen/top_bottom_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/theme_color"
+            android:layout_gravity="center"
+            android:textSize="15dp" />
     </LinearLayout>
 
     <ExpandableListView
