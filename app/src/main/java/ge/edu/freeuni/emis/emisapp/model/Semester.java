@@ -9,8 +9,12 @@ public class Semester {
     private int numSemester;
     private List<Class> classes;
 
-    public Semester(int numSemester, List<Class> classes) {
+    // public setters
+    public void setNumSemester(int numSemester) {
         this.numSemester = numSemester;
+    }
+
+    public void setClasses(List<Class> classes) {
         this.classes = classes;
     }
 
