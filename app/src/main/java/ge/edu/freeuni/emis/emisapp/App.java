@@ -12,10 +12,12 @@ import ge.edu.freeuni.emis.emisapp.interfaces.InfoLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.InfoUpdatingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.PersonalInfoLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.UpdateMessage;
+import ge.edu.freeuni.emis.emisapp.loaders.PersonalInfoLoader;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
 import ge.edu.freeuni.emis.emisapp.model.grading.Grade;
 import ge.edu.freeuni.emis.emisapp.model.grading.SingleDetailedGrade;
+import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
 
 /**
  * Created by giorgi on 7/7/15.
@@ -34,6 +36,12 @@ public class App extends Application implements
 
         // for testing only
         mockInit();
+
+
+        PersonalInfoLoader loader = new PersonalInfoLoader();
+        loader.setContext(this);
+        loader.registerListener(this);
+        loader.execute();
     }
 
     private void init() {
@@ -67,25 +75,105 @@ public class App extends Application implements
             add("bochora");
         }};
 
-        final List<Class> firstSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("Programming methodology", lecturers, 6, grade));
-            add(new Class("Programming paradigms", lecturers, 6, grade));
-            add(new Class("Programming abstractions", lecturers, 6, grade));
-            add(new Class("Object Oriented Design Patterns", lecturers, 6, grade));
-            add(new Class("Object Oriented Design Patterns And More Stuff", lecturers, 6, grade));
-        }};
-        final List<Class> secondSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("OOP", lecturers, 6, grade));
-            add(new Class("Mobile programming", lecturers, 6, grade));
-            add(new Class("Linear algebra", lecturers, 6, grade));
-        }};
-        final List<Class> thirdSemesterClasses = new ArrayList<Class>() {{
-            add(new Class("Practicum Practicum", lecturers, 6, grade));
-            add(new Class("Linear Programming", lecturers, 6, grade));
-            add(new Class("Artificial Intelligence", lecturers, 6, grade));
-            add(new Class("Networking", lecturers, 6, grade));
-            add(new Class("Literature and art", lecturers, 6, grade));
-        }};
+        Class currClass;
+
+        final List<Class> firstSemesterClasses = new ArrayList<Class>();
+        currClass = new Class();
+        currClass.setClassName("Programming methodology");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        firstSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Programming paradigms");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        firstSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Programming abstractions");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        firstSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Object Oriented Design Patterns");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        firstSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Object Oriented Design Patterns And More Stuff");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        firstSemesterClasses.add(currClass);
+
+        final List<Class> secondSemesterClasses = new ArrayList<Class>();
+
+        currClass = new Class();
+        currClass.setClassName("OOP");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        secondSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Mobile programming");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        secondSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Linear algebra");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        secondSemesterClasses.add(currClass);
+
+
+        final List<Class> thirdSemesterClasses = new ArrayList<Class>();
+        currClass = new Class();
+        currClass.setClassName("Practicum Practicum");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        thirdSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Linear Programming");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        thirdSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Artificial Intelligence");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        thirdSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Networking");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        thirdSemesterClasses.add(currClass);
+
+        currClass = new Class();
+        currClass.setClassName("Literature and art");
+        currClass.setLecturers(lecturers);
+        currClass.setNumCredits(6);
+        currClass.setStudentsGrade(grade);
+        thirdSemesterClasses.add(currClass);
+
+
 
         for (Class firstSemesterClass : firstSemesterClasses) {
             for (SingleDetailedGrade singleDetailedGrade : homework) {
@@ -123,11 +211,22 @@ public class App extends Application implements
             }
         };
 
-        semesterList = new ArrayList<Semester>(){{
-            add(new Semester(1, firstSemesterClasses));
-            add(new Semester(2, secondSemesterClasses));
-            add(new Semester(3, thirdSemesterClasses));
-        }};
+        Semester semester;
+        semesterList = new ArrayList<Semester>();
+        semester = new Semester();
+        semester.setNumSemester(1);
+        semester.setClasses(firstSemesterClasses);
+        semesterList.add(semester);
+
+        semester = new Semester();
+        semester.setNumSemester(2);
+        semester.setClasses(secondSemesterClasses);
+        semesterList.add(semester);
+
+        semester = new Semester();
+        semester.setNumSemester(3);
+        semester.setClasses(thirdSemesterClasses);
+        semesterList.add(semester);
 
 //        notifySemesterListDownloaded(semesterList);
     }
