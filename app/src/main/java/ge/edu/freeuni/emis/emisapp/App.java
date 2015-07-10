@@ -1,6 +1,7 @@
 package ge.edu.freeuni.emis.emisapp;
 
 import android.app.Application;
+import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import ge.edu.freeuni.emis.emisapp.interfaces.InfoLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.InfoUpdatingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.PersonalInfoLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.UpdateMessage;
+import ge.edu.freeuni.emis.emisapp.loaders.GradesLoader;
 import ge.edu.freeuni.emis.emisapp.loaders.PersonalInfoLoader;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
@@ -35,17 +37,23 @@ public class App extends Application implements
         init();
 
         // for testing only
-        mockInit();
+//        mockInit();
 
 
         PersonalInfoLoader loader = new PersonalInfoLoader();
         loader.setContext(this);
         loader.registerListener(this);
         loader.execute();
+
+        GradesLoader gradesLoader = new GradesLoader();
+        gradesLoader.setContext(this);
+        gradesLoader.registerListener(this);
+        gradesLoader.execute();
     }
 
     private void init() {
         listeners = new ArrayList<>();
+        semesterList = new ArrayList<>();
     }
 
     private void mockInit() {
@@ -267,7 +275,8 @@ public class App extends Application implements
 
     @Override
     public void onGradesDownloaded(List<Semester> semesterList) {
-
+        this.semesterList = semesterList;
+        notifySemesterListUpdated(semesterList);
     }
 
     @Override
@@ -282,6 +291,9 @@ public class App extends Application implements
 
     @Override
     public void onPersonalInfoDownloaded(Student studentInfo) {
-
+        studentInfo.setProfileImg(BitmapFactory.decodeResource(getResources(),
+                R.drawable.profile_avatar_placeholder));
+        this.student = studentInfo;
+        notifyStudentInfoUpdated(studentInfo);
     }
 }

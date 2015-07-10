@@ -28,4 +28,17 @@
 
     <string name="title_activity_classes">ClassesActivity</string>
     <string name="grade_indicator">Grade:</string>
+    
+    <string name="student_major">სპეციალობა:</string>
+    <string name="student_degree">საფეხური:</string>
+    <string name="student_semester">მიმდინარე სემესტრი:</string>
+    <string name="student_gender">სქესი:</string>
+    <string name="student_nationality">ეროვნება:</string>
+    <string name="student_birth_date">დაბადების თარიღი</string>
+    <string name="student_address">მისამართი:</string>
+    <string name="student_status">სტატუსი:</string>
+    <string name="student_school">სკოლა:</string>
+    <string name="student_credits">დაგროვებული კრედიტები:</string>
+    <string name="student_gpa">GPA</string>
+    <string name="student_phone_number">ტელეფონის ნომერი:</string>
 </resources>

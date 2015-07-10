@@ -13,16 +13,19 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ge.edu.freeuni.emis.emisapp.App;
 import ge.edu.freeuni.emis.emisapp.R;
 import ge.edu.freeuni.emis.emisapp.adapters.DetailedGradesListAdapter;
+import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
 
 /**
  * Created by giorgi on 7/9/15.
  */
-public class ClassDetailedInfoFragment extends Fragment {
+public class ClassDetailedInfoFragment extends Fragment implements AppStateListener {
     private App app;
     private int semesterIdx;
     private int classIdx;
@@ -67,5 +70,15 @@ public class ClassDetailedInfoFragment extends Fragment {
                 currClass.getDetailedGrades()));
 
         return rootView;
+    }
+
+    @Override
+    public void onSemestersListUpdated(List<Semester> semesterList) {
+
+    }
+
+    @Override
+    public void onStudentInfoUpdated(Student student) {
+
     }
 }

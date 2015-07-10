@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import ge.edu.freeuni.emis.emisapp.R;
 import ge.edu.freeuni.emis.emisapp.adapters.DrawerListAdapter;
 import ge.edu.freeuni.emis.emisapp.ui.DrawerItem;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
+import ge.edu.freeuni.emis.emisapp.ui.fragments.StudentInfoFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.TuitionCardFragment;
 
 
@@ -142,10 +144,14 @@ public class MainActivity extends ActionBarActivity {
 
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
-        Fragment fragment = new PlaceHolderFrag();
-
-        if (position == 1)
+        Fragment fragment;
+        if (position == 0) {
+            fragment = new StudentInfoFragment();
+        } else if (position == 1) {
             fragment = new TuitionCardFragment();
+        } else {
+            fragment = new PlaceHolderFrag();
+        }
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();

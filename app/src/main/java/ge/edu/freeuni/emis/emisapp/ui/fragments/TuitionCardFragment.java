@@ -29,6 +29,7 @@ import ge.edu.freeuni.emis.emisapp.ui.activities.ClassesActivity;
 public class TuitionCardFragment extends Fragment implements AppStateListener {
     private List<Semester> semesterList;
     private AppStateSubject subject;
+    private SemesterListAdapter adapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -48,7 +49,8 @@ public class TuitionCardFragment extends Fragment implements AppStateListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ExpandableListView listView = (ExpandableListView) inflater
                 .inflate(R.layout.fragment_semester_list, container, false);
-        SemesterListAdapter adapter = new SemesterListAdapter(getActivity(), semesterList);
+
+        adapter = new SemesterListAdapter(getActivity(), semesterList);
 
         listView.setAdapter(adapter);
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -68,7 +70,8 @@ public class TuitionCardFragment extends Fragment implements AppStateListener {
 
     @Override
     public void onSemestersListUpdated(List<Semester> semesterList) {
-
+        this.semesterList = semesterList;
+        adapter.setSemesterList(semesterList);
     }
 
     @Override

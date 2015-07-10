@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
  * Created by giorgi on 7/7/15.
  */
 public class Student {
+    private String studentName;
     // profile picture
     private Bitmap profileImg;
     // major specialty, for instance computer science
@@ -17,6 +18,7 @@ public class Student {
     private String nationality;
     // birth date saved as a string in format like: Y-M-D 1994-09-07
     private String birthDate;
+    private String address;
     // active or not
     private String status;
     private String schoolName;
@@ -25,6 +27,10 @@ public class Student {
     private String phoneNumber;
 
     // not overriding constructor, using setters and chaining instead
+    public Student setStudentName(String studentName) {
+        this.studentName = studentName;
+        return this;
+    }
     public Student setProfileImg(Bitmap profileImg) {
         this.profileImg = profileImg;
         // for chaining
@@ -54,6 +60,10 @@ public class Student {
         this.birthDate = birthDate;
         return this;
     }
+    public Student setAddress(String address) {
+        this.address = address;
+        return this;
+    }
     public Student setStatus(String status) {
         this.status = status;
         return this;
@@ -76,6 +86,9 @@ public class Student {
     }
 
     // public getters
+    public String getStudentName() {
+        return studentName;
+    }
     public Bitmap getProfileImg() {
         return profileImg;
     }
@@ -96,6 +109,9 @@ public class Student {
     }
     public String getBirthDate() {
         return birthDate;
+    }
+    public String getAddress() {
+        return address;
     }
     public String getStatus() {
         return status;
