@@ -41,4 +41,10 @@
     <string name="student_credits">დაგროვებული კრედიტები:</string>
     <string name="student_gpa">GPA</string>
     <string name="student_phone_number">ტელეფონის ნომერი:</string>
+
+    <string-array name="unused_cats">
+        <item>შედეგი</item>
+        <item>ჯამი</item>
+        <item>საბოლოო შეფასება</item>
+    </string-array>
 </resources>
