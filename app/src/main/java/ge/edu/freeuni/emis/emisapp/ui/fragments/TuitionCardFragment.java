@@ -21,6 +21,7 @@ import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
 import ge.edu.freeuni.emis.emisapp.model.Semester;
 import ge.edu.freeuni.emis.emisapp.model.Student;
+import ge.edu.freeuni.emis.emisapp.model.TranscriptRow;
 import ge.edu.freeuni.emis.emisapp.ui.activities.ClassesActivity;
 
 /**
@@ -76,6 +77,11 @@ public class TuitionCardFragment extends Fragment implements AppStateListener {
 
     @Override
     public void onStudentInfoUpdated(Student student) {
+
+    }
+
+    @Override
+    public void onTranscriptUpdated(List<TranscriptRow> transcript) {
 
     }
 }

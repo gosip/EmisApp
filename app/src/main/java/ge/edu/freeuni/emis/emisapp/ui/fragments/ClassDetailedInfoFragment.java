@@ -37,6 +37,23 @@ public class ClassDetailedInfoFragment extends Fragment implements AppStateListe
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.semesterIdx = savedInstanceState.getInt("semester");
+            this.classIdx = savedInstanceState.getInt("class");
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("semester", semesterIdx);
+        outState.putInt("class", classIdx);
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         app = (App) activity.getApplication();
@@ -79,6 +96,11 @@ public class ClassDetailedInfoFragment extends Fragment implements AppStateListe
 
     @Override
     public void onStudentInfoUpdated(Student student) {
+
+    }
+
+    @Override
+    public void onTranscriptUpdated(List<TranscriptRow> transcript) {
 
     }
 }

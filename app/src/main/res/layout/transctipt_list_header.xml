@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/class_code"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".15"
+        android:text="MATH105034"/>
+
+    <TextView
+        android:id="@+id/class_name"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".35"
+        android:text="პროგრამული უზრუნველყოფის არქიტექტურული დიზაინის შაბლონები"/>
+
+    <TextView
+        android:id="@+id/semester_name"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".18"
+        android:text="შემ. 2012"/>
+
+    <TextView
+        android:id="@+id/grade"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".12"
+        android:text="A-100"/>
+
+    <TextView
+        android:id="@+id/credits_collected"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".09"
+        android:text="4/4"/>
+
+    <TextView
+        android:id="@+id/scores_collected"
+        android:paddingLeft="@dimen/transcript_padding_horizontal"
+        android:paddingRight="@dimen/transcript_padding_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".11"
+        android:text="20.28"/>
+
+</LinearLayout>

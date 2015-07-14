@@ -22,6 +22,7 @@ import ge.edu.freeuni.emis.emisapp.App;
 import ge.edu.freeuni.emis.emisapp.R;
 import ge.edu.freeuni.emis.emisapp.adapters.DrawerListAdapter;
 import ge.edu.freeuni.emis.emisapp.ui.DrawerItem;
+import ge.edu.freeuni.emis.emisapp.ui.fragments.BSTranscriptFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.StudentInfoFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.TuitionCardFragment;
@@ -48,6 +49,8 @@ public class MainActivity extends ActionBarActivity {
         ));
 
         initDrawer();
+        if (savedInstanceState == null)
+            selectItem(0);
     }
 
     private void initDrawer() {
@@ -149,6 +152,8 @@ public class MainActivity extends ActionBarActivity {
             fragment = new StudentInfoFragment();
         } else if (position == 1) {
             fragment = new TuitionCardFragment();
+        } else if (position == 2) {
+            fragment = new BSTranscriptFragment();
         } else {
             fragment = new PlaceHolderFrag();
         }

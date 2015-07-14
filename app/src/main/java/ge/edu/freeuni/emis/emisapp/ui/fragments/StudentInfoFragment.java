@@ -18,6 +18,7 @@ import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
 import ge.edu.freeuni.emis.emisapp.model.Semester;
 import ge.edu.freeuni.emis.emisapp.model.Student;
+import ge.edu.freeuni.emis.emisapp.model.TranscriptRow;
 
 /**
  * Created by giorgi on 7/10/15.
@@ -117,5 +118,10 @@ public class StudentInfoFragment extends Fragment implements AppStateListener {
         if (viewHolder != null) {
             updateStudentInfo();
         }
+    }
+
+    @Override
+    public void onTranscriptUpdated(List<TranscriptRow> transcript) {
+
     }
 }

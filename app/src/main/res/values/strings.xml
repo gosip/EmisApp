@@ -47,4 +47,11 @@
         <item>ჯამი</item>
         <item>საბოლოო შეფასება</item>
     </string-array>
+
+    <string name="transcript_class_code">საგნის კოდი:</string>
+    <string name="transcript_semester">სემესტრი, წელი:</string>
+    <string name="transcript_grade">შეფასება:</string>
+    <string name="transcript_credits">დაგროვებული კრედიტები:</string>
+    <string name="transcript_score">დაგროვებული ქულა:</string>
+
 </resources>
