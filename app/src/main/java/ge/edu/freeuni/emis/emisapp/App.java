@@ -89,7 +89,7 @@ public class App extends Application implements
                 .setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
                         DEFAULT_NOTIF));
         userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.notification_period),
-                        DEFAULT_NOTIF_PERIOD));
+                DEFAULT_NOTIF_PERIOD));
     }
 
     public void storePreferences() {

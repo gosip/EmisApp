@@ -168,10 +168,4 @@ public class MainActivity extends ActionBarActivity {
         setTitle(drawerItemList.get(position).getItemText());
         drawerLayout.closeDrawer(drawerList);
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        app.storePreferences();
-    }
 }
