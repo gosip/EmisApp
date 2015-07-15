@@ -9,7 +9,6 @@ public class TranscriptRow extends Class {
     private int creditsEarned;
     private double scoreEarned;
 
-
     public TranscriptRow() {
         super();
     }
@@ -39,5 +38,35 @@ public class TranscriptRow extends Class {
     }
     public double getScoreEarned() {
         return scoreEarned;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        TranscriptRow that = (TranscriptRow) o;
+
+        if (creditsEarned != that.creditsEarned) return false;
+        if (Double.compare(that.scoreEarned, scoreEarned) != 0) return false;
+        if (classCode != null ? !classCode.equals(that.classCode) : that.classCode != null)
+            return false;
+        if (!getStudentsGrade().equals(that.getStudentsGrade()))
+            return false;
+        if (!getClassName().equals(that.getClassName()))
+            return false;
+        return !(semesterName != null ? !semesterName.equals(that.semesterName) : that.semesterName != null);
+
+    }
+
+    @Override
+    public String toString() {
+        return "TranscriptRow{" +
+                "classCode='" + classCode + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                ", creditsEarned=" + creditsEarned +
+                ", scoreEarned=" + scoreEarned +
+                '}';
     }
 }

@@ -18,6 +18,27 @@ public class Semester {
         this.classes = classes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Semester semester = (Semester) o;
+
+        if (numSemester != semester.numSemester) return false;
+        return !(classes != null ? !classes.equals(semester.classes) : semester.classes != null);
+
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Semester{");
+        sb.append("numSemester=").append(numSemester);
+        sb.append(", classes=").append(classes.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
     //public getters
     public int getNumSemester() {
         return numSemester;

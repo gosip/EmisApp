@@ -24,7 +24,6 @@ public class Student {
     private String schoolName;
     private int numCredits;
     private double GPA;
-    private String phoneNumber;
 
     // not overriding constructor, using setters and chaining instead
     public Student setStudentName(String studentName) {
@@ -80,10 +79,6 @@ public class Student {
         this.GPA = GPA;
         return this;
     }
-    public Student setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
 
     // public getters
     public String getStudentName() {
@@ -125,7 +120,50 @@ public class Student {
     public double getGPA() {
         return GPA;
     }
-    public String getPhoneNumber() {
-        return phoneNumber;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (currSemester != student.currSemester) return false;
+        if (numCredits != student.numCredits) return false;
+        if (Double.compare(student.GPA, GPA) != 0) return false;
+        if (studentName != null ? !studentName.equals(student.studentName) : student.studentName != null)
+            return false;
+        if (major != null ? !major.equals(student.major) : student.major != null) return false;
+        if (expectedDegree != null ? !expectedDegree.equals(student.expectedDegree) : student.expectedDegree != null)
+            return false;
+        if (gender != null ? !gender.equals(student.gender) : student.gender != null) return false;
+        if (nationality != null ? !nationality.equals(student.nationality) : student.nationality != null)
+            return false;
+        if (birthDate != null ? !birthDate.equals(student.birthDate) : student.birthDate != null)
+            return false;
+        if (address != null ? !address.equals(student.address) : student.address != null)
+            return false;
+        if (status != null ? !status.equals(student.status) : student.status != null) return false;
+        return !(schoolName != null ? !schoolName.equals(student.schoolName) : student.schoolName != null);
+
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentName='" + studentName + '\'' +
+                ", profileImg=" + profileImg +
+                ", major='" + major + '\'' +
+                ", expectedDegree='" + expectedDegree + '\'' +
+                ", currSemester=" + currSemester +
+                ", gender='" + gender + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", address='" + address + '\'' +
+                ", status='" + status + '\'' +
+                ", schoolName='" + schoolName + '\'' +
+                ", numCredits=" + numCredits +
+                ", GPA=" + GPA +
+                '}';
     }
 }

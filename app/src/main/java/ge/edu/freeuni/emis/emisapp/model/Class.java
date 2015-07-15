@@ -36,6 +36,38 @@ public class Class {
         detailedGrades.get(category).add(detailedGrade);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Class aClass = (Class) o;
+
+        if (numCredits != aClass.numCredits) return false;
+        if (className != null ? !className.equals(aClass.className) : aClass.className != null)
+            return false;
+        if (lecturers != null ? !lecturers.equals(aClass.lecturers) : aClass.lecturers != null)
+            return false;
+        if (studentsGrade != null ? !studentsGrade.equals(aClass.studentsGrade) : aClass.studentsGrade != null)
+            return false;
+        if (detailedGradeCategories != null ? !detailedGradeCategories.equals(aClass.detailedGradeCategories) : aClass.detailedGradeCategories != null)
+            return false;
+        return !(detailedGrades != null ? !detailedGrades.equals(aClass.detailedGrades) : aClass.detailedGrades != null);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Class{");
+        sb.append("className='").append(className).append('\'');
+        sb.append(", lecturers=").append(lecturers);
+        sb.append(", numCredits=").append(numCredits);
+        sb.append(", studentsGrade=").append(studentsGrade.toString());
+        sb.append(", detailedGradeCategories=").append(detailedGradeCategories.toString());
+        sb.append(", detailedGrades=").append(detailedGrades.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
     // public getters
     public String getClassName() {
         return className;

@@ -21,6 +21,7 @@ import ge.edu.freeuni.emis.emisapp.R;
 import ge.edu.freeuni.emis.emisapp.adapters.DetailedGradesListAdapter;
 import ge.edu.freeuni.emis.emisapp.interfaces.GradesLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.GradesLoadingSubject;
+import ge.edu.freeuni.emis.emisapp.loaders.util.JsonUtils;
 import ge.edu.freeuni.emis.emisapp.loaders.util.JsoupUtils;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
@@ -72,7 +73,7 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
             // instead mocking:
             if (dataLid.equals("805") || dataLid.equals("1292") || dataLid.equals("1296")) {
                 try {
-                    JSONObject json = JsoupUtils.getJSONObject(dataLid, context);
+                    JSONObject json = JsonUtils.getJSONObject(dataLid, context);
                     parseJSON(json, currClass);
                 }
                 catch (JSONException e) {
@@ -99,20 +100,19 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
             if (Arrays.asList(context.getResources().getStringArray(R.array.unused_cats))
                     .contains(categoryInd)) continue;
             double categoryScore = 0;
-            if (currCompEval != null && currCompEval.get("shedegi")
-                    .getClass().equals(Double.class)) {
+            if (currCompEval != null) {
                 categoryScore = currCompEval.getDouble("shedegi");
             }
             int numSubComps = Integer.parseInt(currComp.getString("count"));
             JSONArray data = currComp.getJSONArray("data");
             for (int i = 1; i <= numSubComps; ++i) {
-                JSONObject pair = data.getJSONObject(i-1);
+                JSONObject pair = data.getJSONObject(i - 1);
                 double weight = Double.parseDouble(pair.getString("xvedriti_cona"));
                 double maxScore = Double.parseDouble(pair.getString("max_shefaseba"));
                 String gradeNumber = Integer.toString(i);
                 double result = 0;
                 double score = 0;
-                if (currCompEval != null && numSubComps > 1) {
+                if (currCompEval != null && numSubComps > 0) {
                     JSONObject currEval = currCompEval.getJSONObject(gradeNumber);
                     result = currEval.getDouble("shedegi");
                     score = currEval.getDouble("val");

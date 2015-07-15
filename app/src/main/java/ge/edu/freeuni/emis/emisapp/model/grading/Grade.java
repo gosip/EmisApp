@@ -24,4 +24,16 @@ public class Grade {
     public void setScore(double score) {
         this.score = score;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Grade grade = (Grade) o;
+
+        if (Double.compare(grade.score, score) != 0) return false;
+        return !(gradeIndicator != null ? !gradeIndicator.equals(grade.gradeIndicator) : grade.gradeIndicator != null);
+
+    }
 }
