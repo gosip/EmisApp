@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;

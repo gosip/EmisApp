@@ -1,5 +1,7 @@
 package ge.edu.freeuni.emis.emisapp.model;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**

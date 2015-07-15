@@ -2,6 +2,7 @@ package ge.edu.freeuni.emis.emisapp.loaders;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,11 +35,13 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
     private GradesLoadingListener listener = null;
     // for mocking purposes
     private Context context;
+    private static int cnt = 1;
 
     @Override
     protected Object doInBackground(Object[] params) {
         List<Semester> semesterList = new ArrayList<Semester>();
-        Document document = JsoupUtils.getDocumentFromFile("grades.htm", context);
+        String filename = cnt++ % 2 == 0 ? "grades.htm" : "grades2.html";
+        Document document = JsoupUtils.getDocumentFromFile(filename, context);
         Elements semesterBlocks = document.getElementsByClass("sem_block");
         for (int i = 0; i < semesterBlocks.size(); ++i) {
             Element currBlock = semesterBlocks.get(i);
@@ -58,7 +61,7 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
         return semesterList;
     }
 
-    private ge.edu.freeuni.emis.emisapp.model.Class getClassFromHtml(Element classHTML) {
+    private Class getClassFromHtml(Element classHTML) {
         Class currClass = new Class();
         Elements elems = classHTML.select("td");
         currClass.setClassName(elems.get(0).text());
@@ -72,6 +75,8 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
             // here would be code getting json files from web
             // instead mocking:
             if (dataLid.equals("805") || dataLid.equals("1292") || dataLid.equals("1296")) {
+                if (dataLid.equals("1292") && cnt % 2 == 0)
+                    dataLid = "statham";
                 try {
                     JSONObject json = JsonUtils.getJSONObject(dataLid, context);
                     parseJSON(json, currClass);
@@ -86,8 +91,9 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
 
     private void parseJSON(JSONObject json, Class cl) throws JSONException {
         if (json.isNull("comp")) return;
+        String studentID = json.getJSONObject("lid").getString("student_id");
         JSONObject components = json.getJSONObject("comp");
-        JSONObject eval = json.getJSONObject("est").getJSONObject("6076");
+        JSONObject eval = json.getJSONObject("est").getJSONObject(studentID);
         Iterator<String> compIter = components.keys();
         while (compIter.hasNext()) {
             String categoryID = compIter.next();

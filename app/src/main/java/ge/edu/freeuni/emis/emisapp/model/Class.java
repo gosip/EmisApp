@@ -1,5 +1,7 @@
 package ge.edu.freeuni.emis.emisapp.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +52,17 @@ public class Class {
             return false;
         if (studentsGrade != null ? !studentsGrade.equals(aClass.studentsGrade) : aClass.studentsGrade != null)
             return false;
-        if (detailedGradeCategories != null ? !detailedGradeCategories.equals(aClass.detailedGradeCategories) : aClass.detailedGradeCategories != null)
+        if (detailedGradeCategories == null && aClass.detailedGradeCategories != null ||
+                detailedGradeCategories != null && aClass.detailedGradeCategories == null)
             return false;
-        return !(detailedGrades != null ? !detailedGrades.equals(aClass.detailedGrades) : aClass.detailedGrades != null);
+        if (detailedGradeCategories.size() != aClass.detailedGradeCategories.size())
+            return false;
+        for (int i = 0; i < detailedGradeCategories.size(); ++i) {
+            Category category = detailedGradeCategories.get(i);
+            if (!aClass.detailedGradeCategories.contains(category))
+                return false;
+        }
+        return true;
     }
 
     @Override
