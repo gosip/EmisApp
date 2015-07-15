@@ -42,6 +42,10 @@
     <string name="student_gpa">GPA</string>
     <string name="student_phone_number">ტელეფონის ნომერი:</string>
 
+    <string name="preference_file_key">ge.edu.freeuni.emis.emisapp.prefs</string>
+    <string name="notification_pref">notifOn</string>
+    <string name="notification_period">notifPeriod</string>
+
     <string-array name="unused_cats">
         <item>შედეგი</item>
         <item>ჯამი</item>

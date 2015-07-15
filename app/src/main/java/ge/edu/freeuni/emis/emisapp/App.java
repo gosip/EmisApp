@@ -2,6 +2,7 @@ package ge.edu.freeuni.emis.emisapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -35,6 +36,9 @@ public class App extends Application implements
         AppStateSubject, GradesLoadingListener, InfoLoadingListener,
         InfoUpdatingListener, PersonalInfoLoadingListener, TranscriptLoadingListener {
 
+    private static final int DEFAULT_NOTIF = 1;
+    private static final int DEFAULT_NOTIF_PERIOD = 5;
+
     private List<AppStateListener> listeners;
 
     private List<Semester> semesterList;
@@ -48,10 +52,21 @@ public class App extends Application implements
     @Override
     public void onCreate() {
         super.onCreate();
+        setDefaultPreferences();
         init();
         initiateInfoLoading();
         if (networkConnectionAvailable)
             initiateLoadingFromWeb();
+    }
+
+    private void setDefaultPreferences() {
+        SharedPreferences preferences = this.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        if (!preferences.contains(getString(R.string.notification_period))) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(getString(R.string.notification_pref), DEFAULT_NOTIF);
+            editor.putInt(getString(R.string.notification_period), DEFAULT_NOTIF_PERIOD);
+        }
     }
 
     private void init() {
