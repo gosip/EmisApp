@@ -45,6 +45,7 @@
     <string name="preference_file_key">ge.edu.freeuni.emis.emisapp.prefs</string>
     <string name="notification_pref">notifOn</string>
     <string name="notification_period">notifPeriod</string>
+    <string name="refresh_on">refreshOn</string>
 
     <string-array name="unused_cats">
         <item>შედეგი</item>
@@ -57,7 +58,7 @@
         <item>15 min.</item>
         <item>30 min.</item>
         <item>1 hour</item>
-        <item>2 hours</item>
+        <item>12 hours</item>
     </string-array>
 
     <string name="transcript_class_code">საგნის კოდი:</string>

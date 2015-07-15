@@ -36,14 +36,16 @@ public class App extends Application implements
         AppStateSubject, GradesLoadingListener, InfoLoadingListener,
         InfoUpdatingListener, PersonalInfoLoadingListener, TranscriptLoadingListener {
 
-    private static final int DEFAULT_NOTIF = 1;
+    private static final boolean DEFAULT_NOTIF = true;
     private static final int DEFAULT_NOTIF_PERIOD = 5;
+    private static final boolean DEFAULT_REFRESH_ON = true;
 
     private List<AppStateListener> listeners;
 
     private List<Semester> semesterList;
     private Student student;
     private List<TranscriptRow> transcript;
+    private UserPreferences userPreferences;
 
     private StudentData internalData;
 
@@ -53,6 +55,12 @@ public class App extends Application implements
     public void onCreate() {
         super.onCreate();
         setDefaultPreferences();
+        initUserPreferences();
+        userPreferences.setRefreshPeriod(10);
+        userPreferences.setNotificationsOn(false);
+        storePreferences();
+        initUserPreferences();
+
         init();
         initiateInfoLoading();
         if (networkConnectionAvailable)
@@ -64,9 +72,34 @@ public class App extends Application implements
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         if (!preferences.contains(getString(R.string.notification_period))) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(getString(R.string.notification_pref), DEFAULT_NOTIF);
+            editor.putBoolean(getString(R.string.notification_pref), DEFAULT_NOTIF);
             editor.putInt(getString(R.string.notification_period), DEFAULT_NOTIF_PERIOD);
+            editor.putBoolean(getString(R.string.refresh_on), DEFAULT_REFRESH_ON);
+            editor.commit();
         }
+    }
+
+    private void initUserPreferences() {
+        SharedPreferences preferences = this.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        this.userPreferences = new UserPreferences();
+        userPreferences.setRefreshOn(preferences.getBoolean(getString(R.string.refresh_on),
+                DEFAULT_REFRESH_ON));
+        userPreferences
+                .setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
+                        DEFAULT_NOTIF));
+        userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.notification_period),
+                        DEFAULT_NOTIF_PERIOD));
+    }
+
+    public void storePreferences() {
+        SharedPreferences preferences = this.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(getString(R.string.notification_pref), userPreferences.isNotificationsOn());
+        editor.putInt(getString(R.string.notification_period), userPreferences.getRefreshPeriod());
+        editor.putBoolean(getString(R.string.refresh_on), userPreferences.isRefreshOn());
+        editor.commit();
     }
 
     private void init() {
@@ -160,6 +193,10 @@ public class App extends Application implements
 
     public Student getStudent() {
         return student;
+    }
+
+    public UserPreferences getUserPreferences() {
+        return userPreferences;
     }
 
     @Override
