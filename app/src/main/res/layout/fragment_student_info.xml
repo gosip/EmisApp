@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:id="@+id/student_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+        <!--<ImageView-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:id="@+id/student_avatar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--/>-->
         <TextView
             android:id="@+id/student_name"
             android:paddingTop="10dp"
@@ -53,9 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
-
+                android:gravity="right" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,8 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -113,8 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -143,8 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
         <LinearLayout
@@ -172,8 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -202,8 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/theme_color"/>
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -232,8 +225,7 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
         <LinearLayout
@@ -261,8 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -292,8 +283,7 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -322,8 +312,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
 
         </LinearLayout>
 
@@ -352,8 +341,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
-                android:textColor="@color/theme_color"/>
+                android:gravity="right" />
         </LinearLayout>
     </LinearLayout>
 

@@ -53,7 +53,7 @@ public class StudentInfoFragment extends Fragment implements AppStateListener {
         View rootView = inflater
                 .inflate(R.layout.fragment_student_info, container, false);
         viewHolder = new ViewHolder();
-        viewHolder.studentImg = (ImageView) rootView.findViewById(R.id.student_avatar);
+//        viewHolder.studentImg = (ImageView) rootView.findViewById(R.id.student_avatar);
         viewHolder.studentName = (TextView) rootView.findViewById(R.id.student_name);
         viewHolder.studentMajor = (TextView) rootView.findViewById(R.id.student_major);
         viewHolder.studentDegree = (TextView) rootView.findViewById(R.id.student_degree);
@@ -76,7 +76,7 @@ public class StudentInfoFragment extends Fragment implements AppStateListener {
     }
 
     private void updateStudentInfo() {
-        viewHolder.studentImg.setImageBitmap(studentInfo.getProfileImg());
+//        viewHolder.studentImg.setImageBitmap(studentInfo.getProfileImg());
         viewHolder.studentName.setText(studentInfo.getStudentName());
         viewHolder.studentMajor.setText(studentInfo.getMajor());
         viewHolder.studentDegree.setText(studentInfo.getExpectedDegree());
@@ -92,7 +92,7 @@ public class StudentInfoFragment extends Fragment implements AppStateListener {
     }
 
     private static class ViewHolder {
-        ImageView studentImg;
+//        ImageView studentImg;
         TextView studentName;
         TextView studentMajor;
         TextView studentDegree;

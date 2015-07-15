@@ -48,6 +48,14 @@
         <item>საბოლოო შეფასება</item>
     </string-array>
 
+    <string-array name="duration_indicators">
+        <item>5 min.</item>
+        <item>15 min.</item>
+        <item>30 min.</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+    </string-array>
+
     <string name="transcript_class_code">საგნის კოდი:</string>
     <string name="transcript_semester">სემესტრი, წელი:</string>
     <string name="transcript_grade">შეფასება:</string>

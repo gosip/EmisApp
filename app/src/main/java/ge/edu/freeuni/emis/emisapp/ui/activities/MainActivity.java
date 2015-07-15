@@ -24,6 +24,7 @@ import ge.edu.freeuni.emis.emisapp.adapters.DrawerListAdapter;
 import ge.edu.freeuni.emis.emisapp.ui.DrawerItem;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.BSTranscriptFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
+import ge.edu.freeuni.emis.emisapp.ui.fragments.SettingsFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.StudentInfoFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.TuitionCardFragment;
 
@@ -155,7 +156,7 @@ public class MainActivity extends ActionBarActivity {
         } else if (position == 2) {
             fragment = new BSTranscriptFragment();
         } else {
-            fragment = new PlaceHolderFrag();
+            fragment = new SettingsFragment();
         }
 
         // Insert the fragment by replacing any existing fragment
