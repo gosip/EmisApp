@@ -29,7 +29,15 @@ import ge.edu.freeuni.emis.emisapp.ui.fragments.StudentInfoFragment;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.TuitionCardFragment;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends OnOffActionBarActivity {
+
+    public static final String FRAGMENT_POSITION_EXTRA = "E.T.";
+
+    public static final int STUDENT_INFO_FRAGMENT = 0;
+    public static final int TUITION_CARD_FRAGMENT = 1;
+    public static final int TRANSCRIPT_FRAGMENT = 2;
+    public static final int SETTINGS_FRAGMENT = 3;
+
     private App app;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -50,8 +58,15 @@ public class MainActivity extends ActionBarActivity {
         ));
 
         initDrawer();
-        if (savedInstanceState == null)
+        int fragmentByPosition = getIntent().getIntExtra(FRAGMENT_POSITION_EXTRA, -1);
+        Log.i("TAG", "" + fragmentByPosition);
+        if (fragmentByPosition != -1) {
+            getIntent().putExtra(FRAGMENT_POSITION_EXTRA, -1);
+            selectItem(fragmentByPosition);
+        }
+        else if (savedInstanceState == null)
             selectItem(0);
+
     }
 
     private void initDrawer() {
@@ -148,15 +163,12 @@ public class MainActivity extends ActionBarActivity {
 
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
-        Fragment fragment;
-        if (position == 0) {
-            fragment = new StudentInfoFragment();
-        } else if (position == 1) {
-            fragment = new TuitionCardFragment();
-        } else if (position == 2) {
-            fragment = new BSTranscriptFragment();
-        } else {
-            fragment = new SettingsFragment();
+        Fragment fragment = null;
+        switch (position) {
+            case STUDENT_INFO_FRAGMENT: fragment = new StudentInfoFragment(); break;
+            case TUITION_CARD_FRAGMENT: fragment = new TuitionCardFragment(); break;
+            case TRANSCRIPT_FRAGMENT: fragment = new BSTranscriptFragment(); break;
+            case SETTINGS_FRAGMENT: fragment = new SettingsFragment(); break;
         }
 
         // Insert the fragment by replacing any existing fragment

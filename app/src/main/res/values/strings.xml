@@ -44,7 +44,7 @@
 
     <string name="preference_file_key">ge.edu.freeuni.emis.emisapp.prefs</string>
     <string name="notification_pref">notifOn</string>
-    <string name="notification_period">notifPeriod</string>
+    <string name="refresh_period">refreshPeriod</string>
     <string name="refresh_on">refreshOn</string>
 
     <string-array name="unused_cats">

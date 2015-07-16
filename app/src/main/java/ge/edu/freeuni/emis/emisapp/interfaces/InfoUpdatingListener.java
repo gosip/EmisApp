@@ -8,5 +8,5 @@ import ge.edu.freeuni.emis.emisapp.model.StudentData;
 import ge.edu.freeuni.emis.emisapp.model.TranscriptRow;
 
 public interface InfoUpdatingListener {
-    public void notifyInfoUpdated(UpdateMessage updateMessage);
+    public void onInfoUpdated(UpdateMessage updateMessage);
 }

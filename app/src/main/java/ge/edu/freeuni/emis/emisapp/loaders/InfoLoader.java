@@ -37,6 +37,9 @@ public class InfoLoader extends AsyncTask implements InfoLoadingSubject {
         List<TranscriptRow> transcript = new ArrayList<>();
 
         String[] fileList = context.fileList();
+        for (String file : fileList)
+            context.deleteFile(file);
+        fileList = context.fileList();
         if (fileList.length > 0) { // there is data to retrieve
             try {
                 retrieveStudentInfo(studentInfo);

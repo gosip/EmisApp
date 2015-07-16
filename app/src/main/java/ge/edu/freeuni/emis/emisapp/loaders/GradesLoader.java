@@ -35,12 +35,13 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
     private GradesLoadingListener listener = null;
     // for mocking purposes
     private Context context;
-    private static int cnt = 1;
+    private static int cnt = 0;
 
     @Override
     protected Object doInBackground(Object[] params) {
         List<Semester> semesterList = new ArrayList<Semester>();
-        String filename = cnt++ % 2 == 0 ? "grades.htm" : "grades2.html";
+        String filename = cnt % 2 == 0 ? "grades.htm" : "grades2.html";
+        Log.i("TAG", filename);
         Document document = JsoupUtils.getDocumentFromFile(filename, context);
         Elements semesterBlocks = document.getElementsByClass("sem_block");
         for (int i = 0; i < semesterBlocks.size(); ++i) {
@@ -75,7 +76,7 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
             // here would be code getting json files from web
             // instead mocking:
             if (dataLid.equals("805") || dataLid.equals("1292") || dataLid.equals("1296")) {
-                if (dataLid.equals("1292") && cnt % 2 == 0)
+                if (dataLid.equals("1292") && cnt % 2 != 0)
                     dataLid = "statham";
                 try {
                     JSONObject json = JsonUtils.getJSONObject(dataLid, context);
@@ -132,6 +133,7 @@ public class GradesLoader extends AsyncTask implements GradesLoadingSubject {
 
     @Override
     protected void onPostExecute(Object o) {
+        cnt++;
         notifySemesterListDownloaded((List<Semester>) o);
     }
 

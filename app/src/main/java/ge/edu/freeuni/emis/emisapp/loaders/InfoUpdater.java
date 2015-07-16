@@ -230,6 +230,6 @@ public class InfoUpdater extends AsyncTask implements InfoUpdatingSubject {
     @Override
     public void notifyInfoUpdated(UpdateMessage updateMessage) {
         if (listener != null)
-            listener.notifyInfoUpdated(updateMessage);
+            listener.onInfoUpdated(updateMessage);
     }
 }

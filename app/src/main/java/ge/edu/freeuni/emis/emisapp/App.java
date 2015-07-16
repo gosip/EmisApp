@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -25,26 +24,21 @@ import ge.edu.freeuni.emis.emisapp.interfaces.InfoUpdatingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.PersonalInfoLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.TranscriptLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.UpdateMessage;
-import ge.edu.freeuni.emis.emisapp.loaders.Filename;
 import ge.edu.freeuni.emis.emisapp.loaders.GradesLoader;
 import ge.edu.freeuni.emis.emisapp.loaders.InfoLoader;
 import ge.edu.freeuni.emis.emisapp.loaders.InfoUpdater;
 import ge.edu.freeuni.emis.emisapp.loaders.PersonalInfoLoader;
 import ge.edu.freeuni.emis.emisapp.loaders.TranscriptLoader;
 import ge.edu.freeuni.emis.emisapp.model.*;
-import ge.edu.freeuni.emis.emisapp.model.Class;
-import ge.edu.freeuni.emis.emisapp.model.grading.Grade;
-import ge.edu.freeuni.emis.emisapp.model.grading.SingleDetailedGrade;
-import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
 
-public class App extends Application implements
+public class App extends OnOffApplication implements
         AppStateSubject, GradesLoadingListener, InfoLoadingListener,
         InfoUpdatingListener, PersonalInfoLoadingListener, TranscriptLoadingListener {
 
-    private static final boolean DEFAULT_NOTIF = true;
-    private static final int DEFAULT_NOTIF_PERIOD = 5;
-    private static final boolean DEFAULT_REFRESH_ON = true;
-    private static final int DEFAULT_PAUSE_MS = 5 * 60 * 1000;
+    public static final boolean DEFAULT_NOTIF = true;
+    public static final int DEFAULT_REFRESH_PERIOD = 5;
+    public static final boolean DEFAULT_REFRESH_ON = true;
+    public static final int DEFAULT_PAUSE_MS = 5 * 60 * 1000;
 
     private List<AppStateListener> listeners;
 
@@ -65,8 +59,8 @@ public class App extends Application implements
     public void onCreate() {
         super.onCreate();
         init();
-        setDefaultPreferences();
         initUserPreferences();
+        setDefaultPreferences();
         if (userPreferences.isRefreshOn())
             setAlarm(this, userPreferences.getRefreshPeriod());
         initiateInfoLoading();
@@ -74,21 +68,21 @@ public class App extends Application implements
             initiateLoadingFromWeb();
     }
 
-    public static void setAlarm(Context context, long intervalMillis) {
+    public static void setAlarm(Context context, long intervalMins) {
         Intent intent = new Intent(context, RefreshService.class);
-        pIntent = PendingIntent.getBroadcast(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        pIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + DEFAULT_PAUSE_MS,
-                intervalMillis * 1000, pIntent);
+                SystemClock.elapsedRealtime(),
+                5 * 1000, pIntent);
+        Log.i("TAG", "alarms");
     }
 
-    public void updateAlarmInterval(long intervalMillis) {
+    public void updateAlarmInterval(long intervalMins) {
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + DEFAULT_PAUSE_MS ,
-                intervalMillis * 1000, pIntent);
+                intervalMins * 60 * 1000, pIntent);
     }
 
     public void turnAlarmOff() {
@@ -98,26 +92,29 @@ public class App extends Application implements
     }
 
     private void setDefaultPreferences() {
-        if (!preferences.contains(getString(R.string.notification_period))) {
+        if (!preferences.contains(getString(R.string.refresh_period))) {
             storePreferences();
         }
     }
 
     private void initUserPreferences() {
         this.userPreferences = new UserPreferences();
-        userPreferences.setRefreshOn(preferences.getBoolean(getString(R.string.refresh_on),
-                DEFAULT_REFRESH_ON));
-        userPreferences
-                .setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
-                        DEFAULT_NOTIF));
-        userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.notification_period),
-                DEFAULT_NOTIF_PERIOD));
+        if (!userPreferences.isRefreshOn())
+            turnAlarmOff();
+        else {
+            userPreferences.setRefreshOn(preferences.getBoolean(getString(R.string.refresh_on),
+                    DEFAULT_REFRESH_ON));
+            userPreferences.setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
+                    DEFAULT_NOTIF));
+            userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.refresh_period),
+                    DEFAULT_REFRESH_PERIOD));
+        }
     }
 
     public void storePreferences() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(getString(R.string.notification_pref), userPreferences.isNotificationsOn());
-        editor.putInt(getString(R.string.notification_period), userPreferences.getRefreshPeriod());
+        editor.putInt(getString(R.string.refresh_period), userPreferences.getRefreshPeriod());
         editor.putBoolean(getString(R.string.refresh_on), userPreferences.isRefreshOn());
         editor.apply();
     }
@@ -197,7 +194,7 @@ public class App extends Application implements
     }
 
     @Override
-    public void notifyInfoUpdated(UpdateMessage updateMessage) {
+    public void onInfoUpdated(UpdateMessage updateMessage) {
         Log.i("TAG", updateMessage.toString());
     }
 

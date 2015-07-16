@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
  */
 public class Student {
     private String studentName;
-    // profile picture
-    private Bitmap profileImg;
     // major specialty, for instance computer science
     private String major;
     // expected degree - Masters, Bachelor...
@@ -28,11 +26,6 @@ public class Student {
     // not overriding constructor, using setters and chaining instead
     public Student setStudentName(String studentName) {
         this.studentName = studentName;
-        return this;
-    }
-    public Student setProfileImg(Bitmap profileImg) {
-        this.profileImg = profileImg;
-        // for chaining
         return this;
     }
     public Student setMajor(String major) {
@@ -83,9 +76,6 @@ public class Student {
     // public getters
     public String getStudentName() {
         return studentName;
-    }
-    public Bitmap getProfileImg() {
-        return profileImg;
     }
     public String getMajor() {
         return major;
@@ -152,7 +142,6 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentName='" + studentName + '\'' +
-                ", profileImg=" + profileImg +
                 ", major='" + major + '\'' +
                 ", expectedDegree='" + expectedDegree + '\'' +
                 ", currSemester=" + currSemester +

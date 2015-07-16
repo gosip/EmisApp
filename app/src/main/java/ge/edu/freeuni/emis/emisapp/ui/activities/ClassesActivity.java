@@ -18,7 +18,7 @@ import ge.edu.freeuni.emis.emisapp.model.Semester;
 import ge.edu.freeuni.emis.emisapp.ui.extras.SlidingTabLayout;
 import ge.edu.freeuni.emis.emisapp.ui.fragments.PlaceHolderFrag;
 
-public class ClassesActivity extends ActionBarActivity {
+public class ClassesActivity extends OnOffActionBarActivity {
     private SlidingTabLayout tabLayout;
     private ViewPager viewPager;
 
