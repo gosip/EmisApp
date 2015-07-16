@@ -5,9 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import java.util.List;
 
@@ -46,7 +46,6 @@ public class RefreshService extends IntentService implements PersonalInfoLoading
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d("TAG", "got");
         if (App.isOn()) return;
 
         InfoLoader infoLoader = new InfoLoader(this);
@@ -103,6 +102,9 @@ public class RefreshService extends IntentService implements PersonalInfoLoading
     }
 
     private void notifyUser(UpdateMessage updateMessage) {
+        SharedPreferences preferences =
+                getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+        if (!preferences.getBoolean(getString(R.string.notification_pref), false)) return;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setContentTitle("FreeUni Emis").setAutoCancel(true);
         Intent intent = new Intent(this, MainActivity.class);
@@ -125,7 +127,7 @@ public class RefreshService extends IntentService implements PersonalInfoLoading
                 break;
         }
         builder.setContentIntent(PendingIntent.getActivity(
-                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+                this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT));
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());

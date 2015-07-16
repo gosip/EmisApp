@@ -15,6 +15,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import ge.edu.freeuni.emis.emisapp.background.AlarmReceiver;
 import ge.edu.freeuni.emis.emisapp.background.RefreshService;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.AppStateSubject;
@@ -38,7 +39,7 @@ public class App extends OnOffApplication implements
     public static final boolean DEFAULT_NOTIF = true;
     public static final int DEFAULT_REFRESH_PERIOD = 5;
     public static final boolean DEFAULT_REFRESH_ON = true;
-    public static final int DEFAULT_PAUSE_MS = 5 * 60 * 1000;
+    public static final int DEFAULT_PAUSE_MS = 0 * 60 * 1000;
 
     private List<AppStateListener> listeners;
 
@@ -60,7 +61,7 @@ public class App extends OnOffApplication implements
         super.onCreate();
         init();
         initUserPreferences();
-        setDefaultPreferences();
+        Log.i("TAG", userPreferences.toString());
         if (userPreferences.isRefreshOn())
             setAlarm(this, userPreferences.getRefreshPeriod());
         initiateInfoLoading();
@@ -69,19 +70,12 @@ public class App extends OnOffApplication implements
     }
 
     public static void setAlarm(Context context, long intervalMins) {
-        Intent intent = new Intent(context, RefreshService.class);
+        Intent intent = new Intent(context, AlarmReceiver.class);
         pIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime(),
-                5 * 1000, pIntent);
-        Log.i("TAG", "alarms");
-    }
-
-    public void updateAlarmInterval(long intervalMins) {
-        am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + DEFAULT_PAUSE_MS ,
+                SystemClock.elapsedRealtime() + DEFAULT_PAUSE_MS,
                 intervalMins * 60 * 1000, pIntent);
     }
 
@@ -91,31 +85,35 @@ public class App extends OnOffApplication implements
         }
     }
 
-    private void setDefaultPreferences() {
-        if (!preferences.contains(getString(R.string.refresh_period))) {
-            storePreferences();
-        }
-    }
-
     private void initUserPreferences() {
         this.userPreferences = new UserPreferences();
-        if (!userPreferences.isRefreshOn())
-            turnAlarmOff();
-        else {
-            userPreferences.setRefreshOn(preferences.getBoolean(getString(R.string.refresh_on),
-                    DEFAULT_REFRESH_ON));
-            userPreferences.setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
-                    DEFAULT_NOTIF));
-            userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.refresh_period),
-                    DEFAULT_REFRESH_PERIOD));
+        userPreferences.setRefreshOn(preferences.getBoolean(getString(R.string.refresh_on),
+                DEFAULT_REFRESH_ON));
+        userPreferences.setNotificationsOn(preferences.getBoolean(getString(R.string.notification_pref),
+                DEFAULT_NOTIF));
+        userPreferences.setRefreshPeriod(preferences.getInt(getString(R.string.refresh_period),
+                DEFAULT_REFRESH_PERIOD));
+        if (!preferences.contains(getString(R.string.refresh_period))) {
+            storePreferences();
         }
     }
 
     public void storePreferences() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(getString(R.string.notification_pref), userPreferences.isNotificationsOn());
-        editor.putInt(getString(R.string.refresh_period), userPreferences.getRefreshPeriod());
-        editor.putBoolean(getString(R.string.refresh_on), userPreferences.isRefreshOn());
+        String refreshOn = getString(R.string.refresh_on);
+        if (preferences.getBoolean(refreshOn, DEFAULT_REFRESH_ON) != userPreferences.isRefreshOn()) {
+            if (userPreferences.isRefreshOn())
+                setAlarm(this, userPreferences.getRefreshPeriod());
+            else
+                turnAlarmOff();
+            editor.putBoolean(refreshOn, userPreferences.isRefreshOn());
+        }
+        String refreshPeriod = getString(R.string.refresh_period);
+        if (preferences.getInt(refreshPeriod, DEFAULT_REFRESH_PERIOD) != userPreferences.getRefreshPeriod()) {
+            setAlarm(this, userPreferences.getRefreshPeriod());
+            editor.putInt(refreshPeriod, userPreferences.getRefreshPeriod());
+        }
         editor.apply();
     }
 
@@ -195,7 +193,7 @@ public class App extends OnOffApplication implements
 
     @Override
     public void onInfoUpdated(UpdateMessage updateMessage) {
-        Log.i("TAG", updateMessage.toString());
+
     }
 
 

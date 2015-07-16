@@ -33,4 +33,14 @@ public class UserPreferences {
     public int getRefreshPeriod() {
         return refreshPeriod;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("UserPreferences{");
+        sb.append("refreshOn=").append(refreshOn);
+        sb.append(", notificationsOn=").append(notificationsOn);
+        sb.append(", refreshPeriod=").append(refreshPeriod);
+        sb.append('}');
+        return sb.toString();
+    }
 }

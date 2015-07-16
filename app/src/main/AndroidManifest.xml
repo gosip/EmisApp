@@ -41,6 +41,7 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".background.AlarmReceiver"></receiver>
     </application>
 
 
