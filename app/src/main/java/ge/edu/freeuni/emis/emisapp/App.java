@@ -39,7 +39,7 @@ public class App extends OnOffApplication implements
     public static final boolean DEFAULT_NOTIF = true;
     public static final int DEFAULT_REFRESH_PERIOD = 5;
     public static final boolean DEFAULT_REFRESH_ON = true;
-    public static final int DEFAULT_PAUSE_MS = 0 * 60 * 1000;
+    public static final int DEFAULT_PAUSE_MS = 5 * 60 * 1000;
 
     private List<AppStateListener> listeners;
 
@@ -69,7 +69,7 @@ public class App extends OnOffApplication implements
             initiateLoadingFromWeb();
     }
 
-    public static void setAlarm(Context context, long intervalMins) {
+    public static void setAlarm(Context context, int intervalMins) {
         Intent intent = new Intent(context, AlarmReceiver.class);
         pIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
@@ -77,6 +77,7 @@ public class App extends OnOffApplication implements
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + DEFAULT_PAUSE_MS,
                 intervalMins * 60 * 1000, pIntent);
+        Log.i("TAG", "print alarm " + intervalMins * 60000);
     }
 
     public void turnAlarmOff() {
@@ -194,6 +195,15 @@ public class App extends OnOffApplication implements
     @Override
     public void onInfoUpdated(UpdateMessage updateMessage) {
 
+    }
+
+    public void notifyRefresh(StudentData studentData) {
+        semesterList = studentData.getSemesterList();
+        student = studentData.getStudentInfo();
+        transcript = studentData.getTranscript();
+        notifyStudentInfoUpdated(student);
+        notifySemesterListUpdated(semesterList);
+        notifyTranscriptUpdated(transcript);
     }
 
 

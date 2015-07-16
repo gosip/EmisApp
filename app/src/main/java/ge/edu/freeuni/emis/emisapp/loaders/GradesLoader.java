@@ -16,17 +16,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import ge.edu.freeuni.emis.emisapp.R;
-import ge.edu.freeuni.emis.emisapp.adapters.DetailedGradesListAdapter;
 import ge.edu.freeuni.emis.emisapp.interfaces.GradesLoadingListener;
 import ge.edu.freeuni.emis.emisapp.interfaces.GradesLoadingSubject;
 import ge.edu.freeuni.emis.emisapp.loaders.util.JsonUtils;
 import ge.edu.freeuni.emis.emisapp.loaders.util.JsoupUtils;
 import ge.edu.freeuni.emis.emisapp.model.*;
 import ge.edu.freeuni.emis.emisapp.model.Class;
-import ge.edu.freeuni.emis.emisapp.model.grading.Category;
 import ge.edu.freeuni.emis.emisapp.model.grading.Grade;
 import ge.edu.freeuni.emis.emisapp.model.grading.SingleDetailedGrade;
 

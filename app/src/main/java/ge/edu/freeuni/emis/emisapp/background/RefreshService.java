@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -46,7 +47,6 @@ public class RefreshService extends IntentService implements PersonalInfoLoading
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (App.isOn()) return;
 
         InfoLoader infoLoader = new InfoLoader(this);
         infoLoader.registerListener(this);
@@ -98,10 +98,35 @@ public class RefreshService extends IntentService implements PersonalInfoLoading
 
     @Override
     public void onInfoUpdated(UpdateMessage updateMessage) {
-        if (updateMessage != UpdateMessage.NO) notifyUser(updateMessage);
+        if (updateMessage != UpdateMessage.NO){
+            notifyUser(updateMessage, App.isOn());
+            App app = ((App) getApplication());
+            app.notifyRefresh(new StudentData(studentInfo, semesterList, transcript));
+        }
     }
 
-    private void notifyUser(UpdateMessage updateMessage) {
+    private void notifyUser(UpdateMessage updateMessage, boolean appIsOn) {
+        if (appIsOn) toastNotification(updateMessage);
+        else throwNotification(updateMessage);
+    }
+
+    private void toastNotification(UpdateMessage updateMessage) {
+        String message = "";
+        switch (updateMessage) {
+            case GRADE:
+                message = "New grade added";
+                break;
+            case PERSONAL_INFO:
+                message = "Personal info changed";
+                break;
+            case TRANSCRIPT:
+                message = "Transcript changed";
+                break;
+        }
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private void throwNotification(UpdateMessage updateMessage) {
         SharedPreferences preferences =
                 getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
         if (!preferences.getBoolean(getString(R.string.notification_pref), false)) return;

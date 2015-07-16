@@ -17,7 +17,7 @@ public class BootReceiver extends BroadcastReceiver {
             SharedPreferences preferences = context.getSharedPreferences(
                     context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             if (preferences.getBoolean(context.getString(R.string.refresh_on), false)) {
-                App.setAlarm(context, preferences.getLong(context.getString(R.string.refresh_period),
+                App.setAlarm(context, preferences.getInt(context.getString(R.string.refresh_period),
                         App.DEFAULT_REFRESH_PERIOD));
             }
         }
